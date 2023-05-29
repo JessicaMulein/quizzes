@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .question { margin-bottom: 1em; }
+    </style>
+</head>
+<body>
+    <h1>Mythic Quest Personality Test</h1>
+    <div id="quiz"></div>
+    <button onclick="calculateResults()">Submit</button>
+    <div id="results"></div>
+
+    <script>
+        const questions = [
+            {
+                text: 'When you face a challenge, what\'s your first reaction?',
+                options: [
+                    'Find an innovative solution.',
+                    'Work harder and show your dedication.',
+                    'Delegate and supervise.',
+                    'Use humor to lighten the situation.',
+                    'Get emotional and maybe cry.'
+                ]
+            },
+            {
+                text: 'How would you describe your leadership style?',
+                options: [
+                    'Creative and visionary.',
+                    'Supportive and team-oriented.',
+                    'Dominating and controlling.',
+                    'Unconventional and flexible.',
+                    'Emotional and passionate.'
+                ]
+            },
+            {
+                text: 'How do you handle conflict?',
+                options: [
+                    'You see it as a chance to inspire.',
+                    'You listen and strive for compromise.',
+                    'You believe in your authority.',
+                    'You use humor to diffuse tension.',
+                    'You let your feelings be known.'
+                ]
+            },
+            {
+                text: 'What\'s your approach to problem-solving?',
+                options: [
+                    'Creatively and out-of-the-box.',
+                    'Collaboratively and methodically.',
+                    'Authoritatively and decisively.',
+                    'Casually and with humor.',
+                    'Emotionally and intuitively.'
+                ]
+            },
+            {
+                text: 'How do you handle criticism?',
+                options: [
+                    'See it as a chance for innovation.',
+                    'Take it as feedback to improve.',
+                    'You prefer to give it, not take it.',
+                    'Laugh it off.',
+                    'It affects you deeply.'
+                ]
+            },
+            {
+                text: 'What motivates you?',
+                options: [
+                    'The chance to innovate.',
+                    'Team success.',
+                    'Power and control.',
+                    'Laughter and fun.',
+                    'Deep emotions and connections.'
+                ]
+            },
+            {
+                text: 'How do you approach personal relationships at work?',
+                options: [
+                    'Keep them separate from your creative vision.',
+                    'Cultivate them as a part of a strong team.',
+                    'Use them to further your authority.',
+                    'Keep them light and full of humor.',
+                    'Embrace them wholeheartedly.'
+                ]
+            }
+        ];
+
+
+        const characters = ['Ian', 'Poppy', 'David', 'Brad', 'Rachel'];
+        const scores = [0, 0, 0, 0, 0];
+
+        window.onload = () => {
+            const quizDiv = document.getElementById('quiz');
+            questions.forEach((q, i) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                const questionText = document.createElement('p');
+                questionText.innerText = q.text;
+                questionDiv.appendChild(questionText);
+                q.options.forEach((option, j) => {
+                    const optionInput = document.createElement('input');
+                    optionInput.type = 'radio';
+                    optionInput.name = 'question' + i;
+                    optionInput.value = j;
+                    questionDiv.appendChild(optionInput);
+                    const optionLabel = document.createElement('label');
+                    optionLabel.innerText = option;
+                    questionDiv.appendChild(optionLabel);
+                    questionDiv.appendChild(document.createElement('br'));
+                });
+                quizDiv.appendChild(questionDiv);
+            });
+        };
+
+        function calculateResults() {
+            const inputs = document.querySelectorAll('input[type=radio]:checked');
+            inputs.forEach(input => {
+                scores[input.value]++;
+            });
+            const maxScore = Math.max(...scores);
+            const maxIndex = scores.indexOf(maxScore);
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerText = 'You are most like: ' + characters[maxIndex];
+        }
+    </script>
+</body>
+</html>
